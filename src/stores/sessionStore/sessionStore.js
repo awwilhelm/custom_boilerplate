@@ -2,7 +2,6 @@
 import { observable, action } from 'mobx';
 
 class SessionStore {
-
   @observable session;
   @observable user;
 
@@ -23,7 +22,6 @@ class SessionStore {
     this.session = null;
     this.user = null;
   }
-
 }
 
 const sessionStore = new SessionStore();
