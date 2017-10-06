@@ -12,8 +12,8 @@ function App() {
       <Header />
       <Switch>
         <Route exact path={home} component={Home} />
-        <Route exact path={about} component={About} />
-        <Route exact path={contactUs} component={ContactUs} />
+        <Route path={about} component={About} />
+        <Route path={contactUs} component={ContactUs} />
         <Redirect to={home} />
       </Switch>
     </div>

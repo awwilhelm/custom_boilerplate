@@ -4,7 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    historyApiFallback: true
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -23,8 +24,8 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets : ['es2015', 'stage-0', 'react'],
-          plugins: ['transform-decorators-legacy'],
+          presets : ['es2015', 'stage-2', 'react'],
+          plugins: ['transform-decorators-legacy', 'babel-plugin-transform-object-assign'],
         }
       },
       {

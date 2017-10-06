@@ -18,7 +18,7 @@ getGenreLink.propTypes = {
   genre: PropTypes.string.isRequired,
 };
 
-function Logo({ genre }) {
+function Logo() {
   return (
     <div>
       <Link to={home}>
@@ -28,8 +28,19 @@ function Logo({ genre }) {
   );
 }
 
-Logo.propTypes = {
-  genre: PropTypes.string.isRequired,
+function Nav({ to, children }) {
+  return (
+    <div>
+      <Link to={to}>
+        {children}
+      </Link>
+    </div>
+  );
+}
+
+Nav.propTypes = {
+  to: PropTypes.string.isRequired,
+  children: PropTypes.instanceOf(<div />).isRequired,
 };
 
 function MenuItem({ selectedGenre, genre }) {
@@ -93,38 +104,27 @@ SessionAction.defaultProps = {
   currentUser: null,
 };
 
-function MenuList({ selectedGenre }) {
-  return (
-    <div>
-      {map((genre, idx) => {
-        const menuItemProps = { genre, selectedGenre };
-        return <MenuItem key={idx} {...menuItemProps} />;
-      }, GENRES)}
-    </div>
-  );
-}
-
-MenuList.propTypes = {
-  selectedGenre: PropTypes.func.isRequired,
-};
-
 const Header = inject('sessionStore')(
   observer(({ location, sessionStore }) => {
     const genre = parse(location.search).genre || DEFAULT_GENRE;
     return (
       <div className="header">
         <div className="header-content">
-          <Logo genre={genre} />
-          <Route exact path={about} render={() => <MenuList selectedGenre={genre} />} />
-          <SessionAction
-            currentUser={sessionStore.user}
-            onLogin={actions.login}
-            onLogout={actions.logout}
-          />
+          <Logo />
+          <div className="header-navbar-container">
+            <Nav className="navbar-padding" to={home}>Home</Nav>
+            <Nav className="navbar-padding" to={about}>About</Nav>
+            <Nav className="navbar-padding" to={contactUs}>Contact Us</Nav>
+          </div>
         </div>
       </div>
     );
   }));
+  // <SessionAction
+  //   currentUser={sessionStore.user}
+  //   onLogin={actions.login}
+  //   onLogout={actions.logout}
+  // />
 
 Header.wrappedComponent.propTypes = {
   sessionStore: PropTypes.shape({
